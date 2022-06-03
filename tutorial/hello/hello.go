@@ -17,7 +17,7 @@ func main() {
 	log.SetFlags(0)
 
 	// A slice of names
-	names := []string{"Cao Minh", "Si Nam", "Tuan Anh"}
+	names := []string{"Cao Minh", "Si Nam", "Tuan Anh", 1}
 
 	// Request a greeting message.
 	// message, err := greetings.Hello("")
@@ -26,7 +26,7 @@ func main() {
 	// If an error was returned, print it to the console and
 	// exit the program.
 	if err != nil {
-		log.Fatal(err)
+		// log.Fatal(err)
 	}
 
 	// If no error was returned, print the returned message
