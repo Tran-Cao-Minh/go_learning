@@ -1,0 +1,729 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meta Todo List</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+
+    <script
+      src="https://kit.fontawesome.com/71b197ec7f.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <header
+      class="border-bottom bg-warning align-items-center d-flex"
+      style="height: 78px; position: absolute; top: 0; left: 0; right: 0"
+    >
+      <div class="col-12">
+        <div
+          class="d-flex pt-2 flex-wrap align-items-center justify-content-center"
+        >
+          <div class="col-11 d-flex">
+            <a
+              href="/"
+              class="fs-3 d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+            >
+              <i class="fa-solid fa-bars"></i>
+            </a>
+            <a
+              href="/"
+              class="fs-3 mx-4 d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+            >
+              <i class="fa-solid fa-house"></i>
+            </a>
+
+            <form class="col-3 mb-2 me-lg-3">
+              <input
+                type="search"
+                class="form-control"
+                placeholder="Search"
+                aria-label="Search"
+              />
+            </form>
+          </div>
+
+          <a
+            href="/"
+            class="fs-3 me-4 d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+          >
+            <i class="fa-solid fa-bell"></i>
+          </a>
+          <a
+            href="/logout"
+            class="fs-3 d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+          >
+            <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="d-flex flex-column flex-shrink-0 p-4 bg-light"
+      style="
+        /* width: 470px; */
+        width: 200px;
+        height: calc(100vh - 78px);
+        position: absolute;
+        top: 78px;
+        left: 0;
+      "
+    >
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+          <a
+            href="#all-task"
+            class="js-sidebar-link nav-link my-2 text-dark d-flex justify-content-between"
+          >
+            <div>
+              <img
+                class="mb-1 me-1"
+                src="/static/image/all-tasks-icon.png"
+                alt="all task icon"
+                width="21"
+                height="21"
+              />
+              <span> All tasks </span>
+            </div>
+            <span> 10 </span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#today"
+            class="js-sidebar-link nav-link my-2 text-dark d-flex justify-content-between"
+            aria-current="page"
+          >
+            <div>
+              <img
+                class="mb-1 me-1"
+                src="/static/image/today-icon.png"
+                alt="today icon"
+                width="21"
+                height="21"
+              />
+              <span> Today </span>
+            </div>
+            <span> 10 </span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#upcoming"
+            class="js-sidebar-link nav-link my-2 text-dark d-flex justify-content-between"
+            aria-current="page"
+          >
+            <div>
+              <img
+                class="mb-1 me-1"
+                src="/static/image/upcoming-icon.png"
+                alt="upcoming icon"
+                width="21"
+                height="21"
+              />
+              <span> Upcoming </span>
+            </div>
+            <span> 10 </span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#label"
+            class="js-sidebar-link nav-link my-2 text-dark d-flex justify-content-between"
+            aria-current="page"
+          >
+            <div>
+              <img
+                class="mb-1 me-1"
+                src="/static/image/label-icon.png"
+                alt="label icon"
+                width="21"
+                height="21"
+              />
+              <span> Label </span>
+            </div>
+            <span> 10 </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <section
+      style="
+        position: absolute;
+        top: 78px;
+        right: 0;
+        /* width: calc(100vw - 470px); */
+        width: calc(100vw - 200px);
+        height: calc(100vh - 78px);
+      "
+      class="bg-white overflow-auto px-5 py-4"
+      id="main"
+    >
+      <!-- TITLE -->
+      <!-- title with date -->
+      <!-- <div class="d-flex align-items-center">
+        <h2 class="fs-4 mb-1">Today</h2>
+        <span class="ms-2 text-muted"> 3 Jun 2022 </span>
+      </div> -->
+      <!-- title with date -->
+      <!-- title with date navigate -->
+      <!-- <div class="d-flex align-items-center justify-content-between">
+        <h2 class="fs-4 mb-1">Jun 2022</h2>
+        <style>
+          .upcoming-select {
+            width: 6.25rem;
+            height: 2.25rem;
+          }
+          .pagi-square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 2.25rem;
+            height: 2.25rem;
+          }
+        </style>
+        <div class="d-flex">
+          <ul class="pagination mb-0">
+            <li class="page-item">
+              <span
+                class="page-link pagi-square text-secondary fw-bold rounded text-muted"
+                data-page-num="-"
+                aria-label="Previous"
+              >
+                <i class="fa-solid fa-angle-left"></i>
+              </span>
+            </li>
+            <li class="page-item">
+              <span
+                class="page-link pagi-square text-secondary fw-bold rounded"
+                data-page-num="+"
+                aria-label="Next"
+              >
+                <i class="fa-solid fa-angle-right"></i>
+              </span>
+            </li>
+          </ul>
+          <button class="ms-2 upcoming-select border btn btn-white">
+            Today
+          </button>
+        </div>
+      </div> -->
+      <!-- title with date navigate -->
+      <!-- title only -->
+      <!-- <div class="d-flex align-items-center">
+        <h2 class="fs-4 mb-1">Labels</h2>
+      </div> -->
+      <!-- title only -->
+      <!-- title with tag -->
+      <!-- <div class="d-flex align-items-center">
+        <h2 class="fs-4 mb-1">
+          <i style="color: lightblue" class="fa-solid fa-tag me-3"></i>Done
+        </h2>
+      </div> -->
+      <!-- title with tag -->
+      <!-- title add label -->
+      <div class="d-flex align-items-center justify-content-between">
+        <h2 class="fs-4 mb-1">Labels</h2>
+        <div>
+          <button
+            class="btn btn-outline-warning position-relative"
+            data-bs-toggle="collapse"
+            data-bs-target="#addLabelForm"
+          >
+            <i class="fa-solid fa-plus"></i>
+            Add label
+          </button>
+          <!-- add label popup form -->
+          <style>
+            .add-label-form {
+              position: absolute;
+              top: 4.75rem;
+              right: 3rem;
+              z-index: 2;
+              /* background: red; */
+              width: 16.9375rem;
+            }
+            .btn-add-label-form {
+              width: 6.5625rem;
+              height: 2rem;
+              line-height: 1.125rem;
+            }
+          </style>
+          <div
+            class="collapse add-label-form bg-white shadow"
+            id="addLabelForm"
+          >
+            <h5 class="text-dark mt-3 mx-3">Add label</h5>
+            <hr class="text-muted" />
+            <div class="mb-3 px-3">
+              <input
+                type="text"
+                class="form-control"
+                id="labelName"
+                placeholder="Name"
+              />
+            </div>
+            <div class="w-full d-flex px-3 mb-3 justify-content-around">
+              <span
+                class="btn btn-secondary fw-semibold btn-add-label-form rounded"
+                data-bs-toggle="collapse"
+                data-bs-target="#addLabelForm"
+                >Cancel</span
+              >
+              <span
+                class="btn btn-warning text-light fw-semibold btn-add-label-form rounded"
+                >Add</span
+              >
+            </div>
+          </div>
+          <!-- add label popup form -->
+        </div>
+      </div>
+      <!-- title add label -->
+      <!-- TITLE -->
+
+      <hr />
+
+      <!-- task item !!! -> use it for modal detail task -->
+      <div class="card my-3" data-bs-toggle="modal" data-bs-target="#editTask">
+        <div class="card-body d-flex flex-wrap">
+          <div class="form-check mb-1" style="width: 30px">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="exampleRadios"
+              id="exampleRadios1"
+              value="option1"
+              checked=""
+            />
+          </div>
+          <div class="w-full mb-1">
+            <h5 class="card-title mb-3">Special title treatment</h5>
+            <p class="card-text my-2">
+              With supporting text below as a natural lead-in to additional
+              content.
+            </p>
+          </div>
+          <div class="col-12 mt-2 d-flex">
+            <a
+              href="#"
+              class="btn btn-outline-warning me-2"
+              style="font-size: 0.825rem"
+            >
+              <i class="fa-solid fa-calendar-days"></i>
+              Today
+            </a>
+            <span
+              class="badge bg-success px-3 me-2 align-items-center d-flex fs-6 fw-semibold"
+              style="cursor: pointer"
+            >
+              New
+              <i
+                class="ms-2 fa-solid fa-xmark"
+                style="margin-top: 0.125rem"
+              ></i>
+            </span>
+            <span
+              class="badge bg-success px-3 me-2 align-items-center d-flex fs-6 fw-semibold"
+              style="cursor: pointer"
+            >
+              New
+              <i
+                class="ms-2 fa-solid fa-xmark"
+                style="margin-top: 0.125rem"
+              ></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- task item -->
+      <!-- form edit task -->
+      <style>
+        #editTask {
+          position: fixed;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+
+          display: none;
+          justify-content: center;
+          align-items: center;
+
+          background: #3333;
+        }
+        .edit-task-form {
+          width: 100%;
+          max-width: 66.5rem;
+          height: calc(100vh - 6rem);
+          z-index: 1060;
+
+          overflow-y: auto;
+        }
+      </style>
+      <div id="editTask" class="modal">
+        <div
+          class="edit-task-form modal-dialog bg-white shadow rounded d-flex flex-wrap"
+        >
+          <div
+            class="col-12 bg-warning px-4 d-flex align-items-center justify-content-end"
+            style="height: 3.75rem"
+          >
+            <span style="cursor: pointer">
+              <i class="fa-solid fa-xmark text-white fs-3"></i>
+            </span>
+          </div>
+          <div
+            class="col-12 bg-light d-flex"
+            style="min-height: calc(100vh - 9.75rem)"
+          >
+            <div class="col-8 bg-white px-3">
+              <div class="card-body px-0 d-flex flex-wrap">
+                <div class="form-check" style="width: 30px">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="exampleRadios"
+                    id="exampleRadios1"
+                    value="option1"
+                    checked=""
+                  />
+                </div>
+                <div style="width: calc(100% - 30px)">
+                  <h5 class="card-title mb-3">Special title treatment</h5>
+                  <textarea
+                    id="task"
+                    class="form-control"
+                    rows="4"
+                    placeholder="Description"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <button
+                  class="btn btn-outline-warning"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#addSubTask"
+                >
+                  <i class="fa-solid fa-plus"></i>
+                  Add sub-task
+                </button>
+
+                <!-- form add task -->
+                <style>
+                  .add-task-form-interaction {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    left: 0;
+
+                    height: 3.25rem;
+
+                    cursor: pointer;
+                  }
+                </style>
+                <div id="addSubTask" class="collapse">
+                  <div class="add-task-form position-relative">
+                    <textarea
+                      id="task"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Description"
+                    ></textarea>
+                    <label
+                      for="task"
+                      class="add-task-form-interaction px-2 d-flex justify-content-between align-items-center"
+                    >
+                      <input
+                        type="datetime-local"
+                        class="form-control"
+                        style="width: 11rem; font-size: 0.825rem"
+                      />
+                    </label>
+                  </div>
+                  <div class="col-12 d-flex mt-2 justify-content-end">
+                    <button
+                      class="btn px-4 me-2 btn-secondary fw-semibold rounded"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      class="btn px-4 btn-warning text-light fw-semibold rounded"
+                    >
+                      Add tasks
+                    </button>
+                  </div>
+                </div>
+                <!-- form add task -->
+              </div>
+              <hr />
+            </div>
+            <div class="col-4 px-3 py-3">
+              <label for="taskDate" class="d-flex align-items-center mb-2">
+                <h2 class="fs-5 mb-1">Due date</h2>
+              </label>
+              <div class="input-group mb-3">
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="taskDate"
+                />
+              </div>
+              <hr />
+              <label for="taskDate" class="d-flex align-items-center mb-2">
+                <h2 class="fs-5 mb-1">Priority</h2>
+              </label>
+              <select class="form-select">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+              <hr />
+              <label for="taskDate" class="d-flex align-items-center mb-2">
+                <h2 class="fs-5 mb-1">Label</h2>
+              </label>
+              <select class="form-select">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- form edit task -->
+
+      <!-- label list -->
+      <!-- <style>
+        .label-item {
+          cursor: pointer;
+        }
+      </style>
+      <div class="label-list">
+        <div class="label-item col-12">
+          <span class="fw-bold d-block my-4 text-dark">
+            <i style="color: red" class="fa-solid fa-tag me-2"></i> Done
+          </span>
+          <hr />
+        </div>
+        <div class="label-item col-12">
+          <span class="fw-bold d-block my-4 text-dark">
+            <i style="color: green" class="fa-solid fa-tag me-2"></i> Finish
+          </span>
+          <hr />
+        </div>
+        <div class="label-item col-12">
+          <span class="fw-bold d-block my-4 text-dark">
+            <i style="color: brown" class="fa-solid fa-tag me-2"></i> Test
+          </span>
+          <hr />
+        </div>
+      </div> -->
+      <!-- label list -->
+
+      <!-- date pagi -->
+      <!-- date-pagi.html -->
+      <!-- date pagi -->
+
+      <!-- TASK BY DATE -- if no -> add task -->
+      <!-- task-by-date.html -->
+      <!-- TASK BY DATE -->
+
+      <!-- task container -->
+      <!-- task-container.html -->
+      <!-- task container -->
+
+      <!-- add task -->
+      <div class="col-12">
+        <button
+          class="btn btn-outline-warning"
+          data-bs-toggle="collapse"
+          data-bs-target="#addTask"
+        >
+          <i class="fa-solid fa-plus"></i>
+          Add task
+        </button>
+      </div>
+      <!-- add task -->
+      <!-- +++ -->
+      <!-- form add task -->
+      <style>
+        .add-task-form-interaction {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          left: 0;
+
+          height: 3.25rem;
+
+          cursor: pointer;
+        }
+      </style>
+      <div id="addTask" class="collapse">
+        <div class="add-task-form position-relative">
+          <textarea
+            id="task"
+            class="form-control"
+            rows="4"
+            placeholder="Description"
+          ></textarea>
+          <label
+            for="task"
+            class="add-task-form-interaction px-2 d-flex justify-content-between align-items-center"
+          >
+            <input
+              type="date"
+              class="form-control"
+              style="width: 11rem; font-size: 0.825rem"
+            />
+            <div class="right-interaction">
+              <i
+                class="fa-solid fa-tag text-warning fs-5 mx-1 position-relative"
+              >
+                <select
+                  id="a"
+                  class="form-select"
+                  style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    opacity: 0;
+                  "
+                >
+                  <option value="0">Happy</option>
+                  <option value="1">Nice</option>
+                  <option value="0">Happy</option>
+                  <option value="1">Nice</option>
+                  <option value="0">Happy Nice zlogn</option>
+                  <option value="1">Nice</option>
+                </select>
+              </i>
+              <i
+                class="fa-solid fa-flag text-warning fs-5 mx-2 position-relative"
+              >
+                <select
+                  id="a"
+                  class="form-select"
+                  style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    opacity: 0;
+                  "
+                >
+                  <option selected>Medium</option>
+                  <option value="1">Hard</option>
+                </select>
+              </i>
+            </div>
+          </label>
+        </div>
+        <div class="col-12 d-flex mt-2 justify-content-end">
+          <button
+            class="btn px-4 me-2 btn-secondary fw-semibold rounded"
+            data-bs-toggle="collapse"
+            data-bs-target="#addTask"
+          >
+            Cancel
+          </button>
+          <button class="btn px-4 btn-warning text-light fw-semibold rounded">
+            Add tasks
+          </button>
+        </div>
+      </div>
+      <!-- form add task -->
+
+      <!-- pagination -->
+      <!-- <style>
+        .pagi-select {
+          width: 4.5rem;
+          height: 2.25rem;
+        }
+        .pagi-square {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          width: 2.25rem;
+          height: 2.25rem;
+        }
+      </style>
+      <div class="col-12 mt-3 d-flex justify-content-end">
+        <select class="form-select pagi-select me-3 fw-bold">
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+
+        <ul class="pagination">
+          <li class="page-item me-2">
+            <span
+              class="page-link pagi-square text-dark fw-bold rounded text-muted"
+              data-page-num="-"
+              aria-label="Previous"
+            >
+              <i class="fa-solid fa-angle-left"></i>
+            </span>
+          </li>
+          <li class="page-item me-2">
+            <span
+              class="page-link pagi-square text-dark fw-bold rounded"
+              data-page-num="1"
+              >1</span
+            >
+          </li>
+          <li class="page-item me-2">
+            <span
+              class="page-link pagi-square text-white text-dark fw-bold rounded bg-warning"
+              data-page-num="2"
+              >2</span
+            >
+          </li>
+          <li class="page-item me-2">
+            <span
+              class="page-link pagi-square text-dark fw-bold rounded"
+              data-page-num="3"
+              >3</span
+            >
+          </li>
+          <li class="page-item me-2">
+            <span
+              class="page-link pagi-square text-dark fw-bold rounded"
+              data-page-num="4"
+              >4</span
+            >
+          </li>
+          <li class="page-item me-2">
+            <span
+              class="page-link pagi-square text-dark fw-bold rounded"
+              data-page-num="5"
+              >5</span
+            >
+          </li>
+          <li class="page-item">
+            <span
+              class="page-link pagi-square text-dark fw-bold rounded"
+              data-page-num="+"
+              aria-label="Next"
+            >
+              <i class="fa-solid fa-angle-right"></i>
+            </span>
+          </li>
+        </ul>
+      </div> -->
+      <!-- pagination -->
+    </section>
+
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
